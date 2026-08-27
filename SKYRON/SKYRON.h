@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_SKYRON.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_SKYRON_XML_HASH 3022839925658811996
+#define MAVLINK_SKYRON_XML_HASH -6707272924733319126
 
 #ifdef __cplusplus
 extern "C" {
@@ -390,7 +390,7 @@ typedef enum MAV_CMD
           The component should fall back to the system GCS (if any) when it is not directly controlled, and may stop emitting CONTROL_STATUS.
           The flow is otherwise the same as for requesting control over the whole system.
          |System ID of GCS requesting control. 0 when command sent from GCS to autopilot (autopilot determines requesting GCS sysid from message header). Sysid of GCS requesting control when command sent by autopilot to controlling GCS.| 0: Release control, 1: Request control.| Enable automatic granting of ownership on request (by default reject request and notify current owner). 0: Ask current owner and reject request, 1: Allow automatic takeover.| Timeout in seconds before a request to a GCS to allow takeover is assumed to be rejected. This is used to display the timeout graphically on requester and GCS in control.| Empty| Empty| Empty|  */
-   MAV_CMD_POI=40000, /* Save point of interest |Target camera ID. 7 to 255: MAVLink camera component id. 1 to 6 for cameras that don't have a distinct component id (such as autopilot-attached cameras). 0: all cameras. This is used to specifically target autopilot-connected cameras or individual sensors in a multi-sensor MAVLink camera. It is also used to target specific cameras when the MAV_CMD is used in a mission| COLOR| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
+   MAV_CMD_POI=40000, /* Save point of interest |Target camera ID. 7 to 255: MAVLink camera component id. 1 to 6 for cameras that don't have a distinct component id (such as autopilot-attached cameras). 0: all cameras. This is used to specifically target autopilot-connected cameras or individual sensors in a multi-sensor MAVLink camera. It is also used to target specific cameras when the MAV_CMD is used in a mission| COLOR| Capture event type saved on event.jsonl for OBC; IMG_CAPTURE, START_REC or STOP_REC| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
    MAV_CMD_RESET_MPPT=40001, /* Mission command to reset Maximum Power Point Tracker (MPPT) |MPPT number| Empty| Empty| Empty| Empty| Empty| Empty|  */
    MAV_CMD_PAYLOAD_CONTROL=40002, /* Mission command to perform a power cycle on payload |Complete power cycle| VISensor power cycle| Empty| Empty| Empty| Empty| Empty|  */
    MAV_CMD_SensePos=40003, /* Probe control | Delta Arm X Offset|  Delta Arm Y Offset| Probe in/out| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
@@ -648,6 +648,18 @@ typedef enum ONBOARD_POSE_ESTIMATION_SOURCE
    ONBOARD_POSE_ESTIMATION_SOURCE_VPS=8, /* Bit 3: Vision Positioning System — downward-facing camera hovering aid. | */
    ONBOARD_POSE_ESTIMATION_SOURCE_ENUM_END=9, /*  | */
 } ONBOARD_POSE_ESTIMATION_SOURCE;
+#endif
+
+/** @brief Type of capture triggered from the ground control station action; either image capture, start recording or stop recording. */
+#ifndef HAVE_ENUM_CAPTURE_TYPE
+#define HAVE_ENUM_CAPTURE_TYPE
+typedef enum CAPTURE_TYPE
+{
+   CAPTURE_TYPE_IMG_CAPTURE=0, /* Single still image capture. | */
+   CAPTURE_TYPE_START_REC=1, /* Start video recording. | */
+   CAPTURE_TYPE_STOP_REC=2, /* Stop video recording. | */
+   CAPTURE_TYPE_ENUM_END=3, /*  | */
+} CAPTURE_TYPE;
 #endif
 
 // MAVLINK VERSION
