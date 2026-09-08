@@ -1912,7 +1912,7 @@ static void mavlink_test_onboard_computer_modules_status(uint8_t system_id, uint
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_onboard_computer_modules_status_t packet_in = {
-        93372036854775807ULL,29,96,163,230,41,108,175,242,53,120,187
+        93372036854775807ULL,29,96,163,230,41,108,175,242,53,120,187,254
     };
     mavlink_onboard_computer_modules_status_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -1928,6 +1928,7 @@ static void mavlink_test_onboard_computer_modules_status(uint8_t system_id, uint
         packet1.collision_avoidance_state = packet_in.collision_avoidance_state;
         packet1.collision_detection_state = packet_in.collision_detection_state;
         packet1.navigation_state = packet_in.navigation_state;
+        packet1.power_saving_state = packet_in.power_saving_state;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -1942,12 +1943,12 @@ static void mavlink_test_onboard_computer_modules_status(uint8_t system_id, uint
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_onboard_computer_modules_status_pack(system_id, component_id, &msg , packet1.timestamp , packet1.ros_state , packet1.autopilot_connection_state , packet1.GCS_connection_state , packet1.firmware_connection_state , packet1.primary_camera_state , packet1.video_stream_state , packet1.recording_state , packet1.pose_estimation_state , packet1.collision_avoidance_state , packet1.collision_detection_state , packet1.navigation_state );
+    mavlink_msg_onboard_computer_modules_status_pack(system_id, component_id, &msg , packet1.timestamp , packet1.ros_state , packet1.autopilot_connection_state , packet1.GCS_connection_state , packet1.firmware_connection_state , packet1.primary_camera_state , packet1.video_stream_state , packet1.recording_state , packet1.pose_estimation_state , packet1.collision_avoidance_state , packet1.collision_detection_state , packet1.navigation_state , packet1.power_saving_state );
     mavlink_msg_onboard_computer_modules_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_onboard_computer_modules_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.ros_state , packet1.autopilot_connection_state , packet1.GCS_connection_state , packet1.firmware_connection_state , packet1.primary_camera_state , packet1.video_stream_state , packet1.recording_state , packet1.pose_estimation_state , packet1.collision_avoidance_state , packet1.collision_detection_state , packet1.navigation_state );
+    mavlink_msg_onboard_computer_modules_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.ros_state , packet1.autopilot_connection_state , packet1.GCS_connection_state , packet1.firmware_connection_state , packet1.primary_camera_state , packet1.video_stream_state , packet1.recording_state , packet1.pose_estimation_state , packet1.collision_avoidance_state , packet1.collision_detection_state , packet1.navigation_state , packet1.power_saving_state );
     mavlink_msg_onboard_computer_modules_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -1960,7 +1961,7 @@ static void mavlink_test_onboard_computer_modules_status(uint8_t system_id, uint
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_onboard_computer_modules_status_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.ros_state , packet1.autopilot_connection_state , packet1.GCS_connection_state , packet1.firmware_connection_state , packet1.primary_camera_state , packet1.video_stream_state , packet1.recording_state , packet1.pose_estimation_state , packet1.collision_avoidance_state , packet1.collision_detection_state , packet1.navigation_state );
+    mavlink_msg_onboard_computer_modules_status_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.ros_state , packet1.autopilot_connection_state , packet1.GCS_connection_state , packet1.firmware_connection_state , packet1.primary_camera_state , packet1.video_stream_state , packet1.recording_state , packet1.pose_estimation_state , packet1.collision_avoidance_state , packet1.collision_detection_state , packet1.navigation_state , packet1.power_saving_state );
     mavlink_msg_onboard_computer_modules_status_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 

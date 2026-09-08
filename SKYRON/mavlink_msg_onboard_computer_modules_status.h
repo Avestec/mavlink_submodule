@@ -19,15 +19,16 @@ typedef struct __mavlink_onboard_computer_modules_status_t {
  uint8_t collision_avoidance_state; /*<  Collision avoidance module health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.*/
  uint8_t collision_detection_state; /*<  Collision detection / perception pipeline health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.*/
  uint8_t navigation_state; /*<  Path planning / navigation stack health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded, MAV_STATE_EMERGENCY=crashed.*/
+ uint8_t power_saving_state; /*<  Power-saving mode status (rover and SA-type crawler). MAV_STATE_ACTIVE=normal full-power operation, MAV_STATE_STANDBY=power-saving mode engaged (LiDAR standby, minimum Jetson power, recording/SLAM stopped).*/
 } mavlink_onboard_computer_modules_status_t;
 
-#define MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN 19
-#define MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_MIN_LEN 19
-#define MAVLINK_MSG_ID_3368_LEN 19
-#define MAVLINK_MSG_ID_3368_MIN_LEN 19
+#define MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN 20
+#define MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_MIN_LEN 20
+#define MAVLINK_MSG_ID_3368_LEN 20
+#define MAVLINK_MSG_ID_3368_MIN_LEN 20
 
-#define MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_CRC 98
-#define MAVLINK_MSG_ID_3368_CRC 98
+#define MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_CRC 113
+#define MAVLINK_MSG_ID_3368_CRC 113
 
 
 
@@ -35,7 +36,7 @@ typedef struct __mavlink_onboard_computer_modules_status_t {
 #define MAVLINK_MESSAGE_INFO_ONBOARD_COMPUTER_MODULES_STATUS { \
     3368, \
     "ONBOARD_COMPUTER_MODULES_STATUS", \
-    12, \
+    13, \
     {  { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_onboard_computer_modules_status_t, timestamp) }, \
          { "ros_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 8, offsetof(mavlink_onboard_computer_modules_status_t, ros_state) }, \
          { "autopilot_connection_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 9, offsetof(mavlink_onboard_computer_modules_status_t, autopilot_connection_state) }, \
@@ -48,12 +49,13 @@ typedef struct __mavlink_onboard_computer_modules_status_t {
          { "collision_avoidance_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_onboard_computer_modules_status_t, collision_avoidance_state) }, \
          { "collision_detection_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_onboard_computer_modules_status_t, collision_detection_state) }, \
          { "navigation_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 18, offsetof(mavlink_onboard_computer_modules_status_t, navigation_state) }, \
+         { "power_saving_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 19, offsetof(mavlink_onboard_computer_modules_status_t, power_saving_state) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_ONBOARD_COMPUTER_MODULES_STATUS { \
     "ONBOARD_COMPUTER_MODULES_STATUS", \
-    12, \
+    13, \
     {  { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_onboard_computer_modules_status_t, timestamp) }, \
          { "ros_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 8, offsetof(mavlink_onboard_computer_modules_status_t, ros_state) }, \
          { "autopilot_connection_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 9, offsetof(mavlink_onboard_computer_modules_status_t, autopilot_connection_state) }, \
@@ -66,6 +68,7 @@ typedef struct __mavlink_onboard_computer_modules_status_t {
          { "collision_avoidance_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_onboard_computer_modules_status_t, collision_avoidance_state) }, \
          { "collision_detection_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 17, offsetof(mavlink_onboard_computer_modules_status_t, collision_detection_state) }, \
          { "navigation_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 18, offsetof(mavlink_onboard_computer_modules_status_t, navigation_state) }, \
+         { "power_saving_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 19, offsetof(mavlink_onboard_computer_modules_status_t, power_saving_state) }, \
          } \
 }
 #endif
@@ -88,10 +91,11 @@ typedef struct __mavlink_onboard_computer_modules_status_t {
  * @param collision_avoidance_state  Collision avoidance module health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.
  * @param collision_detection_state  Collision detection / perception pipeline health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.
  * @param navigation_state  Path planning / navigation stack health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded, MAV_STATE_EMERGENCY=crashed.
+ * @param power_saving_state  Power-saving mode status (rover and SA-type crawler). MAV_STATE_ACTIVE=normal full-power operation, MAV_STATE_STANDBY=power-saving mode engaged (LiDAR standby, minimum Jetson power, recording/SLAM stopped).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t timestamp, uint8_t ros_state, uint8_t autopilot_connection_state, uint8_t GCS_connection_state, uint8_t firmware_connection_state, uint8_t primary_camera_state, uint8_t video_stream_state, uint8_t recording_state, uint8_t pose_estimation_state, uint8_t collision_avoidance_state, uint8_t collision_detection_state, uint8_t navigation_state)
+                               uint64_t timestamp, uint8_t ros_state, uint8_t autopilot_connection_state, uint8_t GCS_connection_state, uint8_t firmware_connection_state, uint8_t primary_camera_state, uint8_t video_stream_state, uint8_t recording_state, uint8_t pose_estimation_state, uint8_t collision_avoidance_state, uint8_t collision_detection_state, uint8_t navigation_state, uint8_t power_saving_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN];
@@ -107,6 +111,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack(uint8_t 
     _mav_put_uint8_t(buf, 16, collision_avoidance_state);
     _mav_put_uint8_t(buf, 17, collision_detection_state);
     _mav_put_uint8_t(buf, 18, navigation_state);
+    _mav_put_uint8_t(buf, 19, power_saving_state);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN);
 #else
@@ -123,6 +128,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack(uint8_t 
     packet.collision_avoidance_state = collision_avoidance_state;
     packet.collision_detection_state = collision_detection_state;
     packet.navigation_state = navigation_state;
+    packet.power_saving_state = power_saving_state;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN);
 #endif
@@ -150,10 +156,11 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack(uint8_t 
  * @param collision_avoidance_state  Collision avoidance module health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.
  * @param collision_detection_state  Collision detection / perception pipeline health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.
  * @param navigation_state  Path planning / navigation stack health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded, MAV_STATE_EMERGENCY=crashed.
+ * @param power_saving_state  Power-saving mode status (rover and SA-type crawler). MAV_STATE_ACTIVE=normal full-power operation, MAV_STATE_STANDBY=power-saving mode engaged (LiDAR standby, minimum Jetson power, recording/SLAM stopped).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               uint64_t timestamp, uint8_t ros_state, uint8_t autopilot_connection_state, uint8_t GCS_connection_state, uint8_t firmware_connection_state, uint8_t primary_camera_state, uint8_t video_stream_state, uint8_t recording_state, uint8_t pose_estimation_state, uint8_t collision_avoidance_state, uint8_t collision_detection_state, uint8_t navigation_state)
+                               uint64_t timestamp, uint8_t ros_state, uint8_t autopilot_connection_state, uint8_t GCS_connection_state, uint8_t firmware_connection_state, uint8_t primary_camera_state, uint8_t video_stream_state, uint8_t recording_state, uint8_t pose_estimation_state, uint8_t collision_avoidance_state, uint8_t collision_detection_state, uint8_t navigation_state, uint8_t power_saving_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN];
@@ -169,6 +176,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack_status(u
     _mav_put_uint8_t(buf, 16, collision_avoidance_state);
     _mav_put_uint8_t(buf, 17, collision_detection_state);
     _mav_put_uint8_t(buf, 18, navigation_state);
+    _mav_put_uint8_t(buf, 19, power_saving_state);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN);
 #else
@@ -185,6 +193,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack_status(u
     packet.collision_avoidance_state = collision_avoidance_state;
     packet.collision_detection_state = collision_detection_state;
     packet.navigation_state = navigation_state;
+    packet.power_saving_state = power_saving_state;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN);
 #endif
@@ -215,11 +224,12 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack_status(u
  * @param collision_avoidance_state  Collision avoidance module health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.
  * @param collision_detection_state  Collision detection / perception pipeline health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.
  * @param navigation_state  Path planning / navigation stack health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded, MAV_STATE_EMERGENCY=crashed.
+ * @param power_saving_state  Power-saving mode status (rover and SA-type crawler). MAV_STATE_ACTIVE=normal full-power operation, MAV_STATE_STANDBY=power-saving mode engaged (LiDAR standby, minimum Jetson power, recording/SLAM stopped).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t timestamp,uint8_t ros_state,uint8_t autopilot_connection_state,uint8_t GCS_connection_state,uint8_t firmware_connection_state,uint8_t primary_camera_state,uint8_t video_stream_state,uint8_t recording_state,uint8_t pose_estimation_state,uint8_t collision_avoidance_state,uint8_t collision_detection_state,uint8_t navigation_state)
+                                   uint64_t timestamp,uint8_t ros_state,uint8_t autopilot_connection_state,uint8_t GCS_connection_state,uint8_t firmware_connection_state,uint8_t primary_camera_state,uint8_t video_stream_state,uint8_t recording_state,uint8_t pose_estimation_state,uint8_t collision_avoidance_state,uint8_t collision_detection_state,uint8_t navigation_state,uint8_t power_saving_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN];
@@ -235,6 +245,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack_chan(uin
     _mav_put_uint8_t(buf, 16, collision_avoidance_state);
     _mav_put_uint8_t(buf, 17, collision_detection_state);
     _mav_put_uint8_t(buf, 18, navigation_state);
+    _mav_put_uint8_t(buf, 19, power_saving_state);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN);
 #else
@@ -251,6 +262,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack_chan(uin
     packet.collision_avoidance_state = collision_avoidance_state;
     packet.collision_detection_state = collision_detection_state;
     packet.navigation_state = navigation_state;
+    packet.power_saving_state = power_saving_state;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN);
 #endif
@@ -269,7 +281,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_pack_chan(uin
  */
 static inline uint16_t mavlink_msg_onboard_computer_modules_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_onboard_computer_modules_status_t* onboard_computer_modules_status)
 {
-    return mavlink_msg_onboard_computer_modules_status_pack(system_id, component_id, msg, onboard_computer_modules_status->timestamp, onboard_computer_modules_status->ros_state, onboard_computer_modules_status->autopilot_connection_state, onboard_computer_modules_status->GCS_connection_state, onboard_computer_modules_status->firmware_connection_state, onboard_computer_modules_status->primary_camera_state, onboard_computer_modules_status->video_stream_state, onboard_computer_modules_status->recording_state, onboard_computer_modules_status->pose_estimation_state, onboard_computer_modules_status->collision_avoidance_state, onboard_computer_modules_status->collision_detection_state, onboard_computer_modules_status->navigation_state);
+    return mavlink_msg_onboard_computer_modules_status_pack(system_id, component_id, msg, onboard_computer_modules_status->timestamp, onboard_computer_modules_status->ros_state, onboard_computer_modules_status->autopilot_connection_state, onboard_computer_modules_status->GCS_connection_state, onboard_computer_modules_status->firmware_connection_state, onboard_computer_modules_status->primary_camera_state, onboard_computer_modules_status->video_stream_state, onboard_computer_modules_status->recording_state, onboard_computer_modules_status->pose_estimation_state, onboard_computer_modules_status->collision_avoidance_state, onboard_computer_modules_status->collision_detection_state, onboard_computer_modules_status->navigation_state, onboard_computer_modules_status->power_saving_state);
 }
 
 /**
@@ -283,7 +295,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_encode(uint8_
  */
 static inline uint16_t mavlink_msg_onboard_computer_modules_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_onboard_computer_modules_status_t* onboard_computer_modules_status)
 {
-    return mavlink_msg_onboard_computer_modules_status_pack_chan(system_id, component_id, chan, msg, onboard_computer_modules_status->timestamp, onboard_computer_modules_status->ros_state, onboard_computer_modules_status->autopilot_connection_state, onboard_computer_modules_status->GCS_connection_state, onboard_computer_modules_status->firmware_connection_state, onboard_computer_modules_status->primary_camera_state, onboard_computer_modules_status->video_stream_state, onboard_computer_modules_status->recording_state, onboard_computer_modules_status->pose_estimation_state, onboard_computer_modules_status->collision_avoidance_state, onboard_computer_modules_status->collision_detection_state, onboard_computer_modules_status->navigation_state);
+    return mavlink_msg_onboard_computer_modules_status_pack_chan(system_id, component_id, chan, msg, onboard_computer_modules_status->timestamp, onboard_computer_modules_status->ros_state, onboard_computer_modules_status->autopilot_connection_state, onboard_computer_modules_status->GCS_connection_state, onboard_computer_modules_status->firmware_connection_state, onboard_computer_modules_status->primary_camera_state, onboard_computer_modules_status->video_stream_state, onboard_computer_modules_status->recording_state, onboard_computer_modules_status->pose_estimation_state, onboard_computer_modules_status->collision_avoidance_state, onboard_computer_modules_status->collision_detection_state, onboard_computer_modules_status->navigation_state, onboard_computer_modules_status->power_saving_state);
 }
 
 /**
@@ -297,7 +309,7 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_encode_chan(u
  */
 static inline uint16_t mavlink_msg_onboard_computer_modules_status_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_onboard_computer_modules_status_t* onboard_computer_modules_status)
 {
-    return mavlink_msg_onboard_computer_modules_status_pack_status(system_id, component_id, _status, msg,  onboard_computer_modules_status->timestamp, onboard_computer_modules_status->ros_state, onboard_computer_modules_status->autopilot_connection_state, onboard_computer_modules_status->GCS_connection_state, onboard_computer_modules_status->firmware_connection_state, onboard_computer_modules_status->primary_camera_state, onboard_computer_modules_status->video_stream_state, onboard_computer_modules_status->recording_state, onboard_computer_modules_status->pose_estimation_state, onboard_computer_modules_status->collision_avoidance_state, onboard_computer_modules_status->collision_detection_state, onboard_computer_modules_status->navigation_state);
+    return mavlink_msg_onboard_computer_modules_status_pack_status(system_id, component_id, _status, msg,  onboard_computer_modules_status->timestamp, onboard_computer_modules_status->ros_state, onboard_computer_modules_status->autopilot_connection_state, onboard_computer_modules_status->GCS_connection_state, onboard_computer_modules_status->firmware_connection_state, onboard_computer_modules_status->primary_camera_state, onboard_computer_modules_status->video_stream_state, onboard_computer_modules_status->recording_state, onboard_computer_modules_status->pose_estimation_state, onboard_computer_modules_status->collision_avoidance_state, onboard_computer_modules_status->collision_detection_state, onboard_computer_modules_status->navigation_state, onboard_computer_modules_status->power_saving_state);
 }
 
 /**
@@ -316,10 +328,11 @@ static inline uint16_t mavlink_msg_onboard_computer_modules_status_encode_status
  * @param collision_avoidance_state  Collision avoidance module health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.
  * @param collision_detection_state  Collision detection / perception pipeline health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded.
  * @param navigation_state  Path planning / navigation stack health. MAV_STATE_UNINIT=not started, MAV_STATE_ACTIVE=running, MAV_STATE_CRITICAL=degraded, MAV_STATE_EMERGENCY=crashed.
+ * @param power_saving_state  Power-saving mode status (rover and SA-type crawler). MAV_STATE_ACTIVE=normal full-power operation, MAV_STATE_STANDBY=power-saving mode engaged (LiDAR standby, minimum Jetson power, recording/SLAM stopped).
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_onboard_computer_modules_status_send(mavlink_channel_t chan, uint64_t timestamp, uint8_t ros_state, uint8_t autopilot_connection_state, uint8_t GCS_connection_state, uint8_t firmware_connection_state, uint8_t primary_camera_state, uint8_t video_stream_state, uint8_t recording_state, uint8_t pose_estimation_state, uint8_t collision_avoidance_state, uint8_t collision_detection_state, uint8_t navigation_state)
+static inline void mavlink_msg_onboard_computer_modules_status_send(mavlink_channel_t chan, uint64_t timestamp, uint8_t ros_state, uint8_t autopilot_connection_state, uint8_t GCS_connection_state, uint8_t firmware_connection_state, uint8_t primary_camera_state, uint8_t video_stream_state, uint8_t recording_state, uint8_t pose_estimation_state, uint8_t collision_avoidance_state, uint8_t collision_detection_state, uint8_t navigation_state, uint8_t power_saving_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN];
@@ -335,6 +348,7 @@ static inline void mavlink_msg_onboard_computer_modules_status_send(mavlink_chan
     _mav_put_uint8_t(buf, 16, collision_avoidance_state);
     _mav_put_uint8_t(buf, 17, collision_detection_state);
     _mav_put_uint8_t(buf, 18, navigation_state);
+    _mav_put_uint8_t(buf, 19, power_saving_state);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS, buf, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_MIN_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_CRC);
 #else
@@ -351,6 +365,7 @@ static inline void mavlink_msg_onboard_computer_modules_status_send(mavlink_chan
     packet.collision_avoidance_state = collision_avoidance_state;
     packet.collision_detection_state = collision_detection_state;
     packet.navigation_state = navigation_state;
+    packet.power_saving_state = power_saving_state;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS, (const char *)&packet, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_MIN_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_CRC);
 #endif
@@ -364,7 +379,7 @@ static inline void mavlink_msg_onboard_computer_modules_status_send(mavlink_chan
 static inline void mavlink_msg_onboard_computer_modules_status_send_struct(mavlink_channel_t chan, const mavlink_onboard_computer_modules_status_t* onboard_computer_modules_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_onboard_computer_modules_status_send(chan, onboard_computer_modules_status->timestamp, onboard_computer_modules_status->ros_state, onboard_computer_modules_status->autopilot_connection_state, onboard_computer_modules_status->GCS_connection_state, onboard_computer_modules_status->firmware_connection_state, onboard_computer_modules_status->primary_camera_state, onboard_computer_modules_status->video_stream_state, onboard_computer_modules_status->recording_state, onboard_computer_modules_status->pose_estimation_state, onboard_computer_modules_status->collision_avoidance_state, onboard_computer_modules_status->collision_detection_state, onboard_computer_modules_status->navigation_state);
+    mavlink_msg_onboard_computer_modules_status_send(chan, onboard_computer_modules_status->timestamp, onboard_computer_modules_status->ros_state, onboard_computer_modules_status->autopilot_connection_state, onboard_computer_modules_status->GCS_connection_state, onboard_computer_modules_status->firmware_connection_state, onboard_computer_modules_status->primary_camera_state, onboard_computer_modules_status->video_stream_state, onboard_computer_modules_status->recording_state, onboard_computer_modules_status->pose_estimation_state, onboard_computer_modules_status->collision_avoidance_state, onboard_computer_modules_status->collision_detection_state, onboard_computer_modules_status->navigation_state, onboard_computer_modules_status->power_saving_state);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS, (const char *)onboard_computer_modules_status, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_MIN_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_CRC);
 #endif
@@ -378,7 +393,7 @@ static inline void mavlink_msg_onboard_computer_modules_status_send_struct(mavli
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_onboard_computer_modules_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t timestamp, uint8_t ros_state, uint8_t autopilot_connection_state, uint8_t GCS_connection_state, uint8_t firmware_connection_state, uint8_t primary_camera_state, uint8_t video_stream_state, uint8_t recording_state, uint8_t pose_estimation_state, uint8_t collision_avoidance_state, uint8_t collision_detection_state, uint8_t navigation_state)
+static inline void mavlink_msg_onboard_computer_modules_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t timestamp, uint8_t ros_state, uint8_t autopilot_connection_state, uint8_t GCS_connection_state, uint8_t firmware_connection_state, uint8_t primary_camera_state, uint8_t video_stream_state, uint8_t recording_state, uint8_t pose_estimation_state, uint8_t collision_avoidance_state, uint8_t collision_detection_state, uint8_t navigation_state, uint8_t power_saving_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -394,6 +409,7 @@ static inline void mavlink_msg_onboard_computer_modules_status_send_buf(mavlink_
     _mav_put_uint8_t(buf, 16, collision_avoidance_state);
     _mav_put_uint8_t(buf, 17, collision_detection_state);
     _mav_put_uint8_t(buf, 18, navigation_state);
+    _mav_put_uint8_t(buf, 19, power_saving_state);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS, buf, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_MIN_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_CRC);
 #else
@@ -410,6 +426,7 @@ static inline void mavlink_msg_onboard_computer_modules_status_send_buf(mavlink_
     packet->collision_avoidance_state = collision_avoidance_state;
     packet->collision_detection_state = collision_detection_state;
     packet->navigation_state = navigation_state;
+    packet->power_saving_state = power_saving_state;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS, (const char *)packet, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_MIN_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_CRC);
 #endif
@@ -542,6 +559,16 @@ static inline uint8_t mavlink_msg_onboard_computer_modules_status_get_navigation
 }
 
 /**
+ * @brief Get field power_saving_state from onboard_computer_modules_status message
+ *
+ * @return  Power-saving mode status (rover and SA-type crawler). MAV_STATE_ACTIVE=normal full-power operation, MAV_STATE_STANDBY=power-saving mode engaged (LiDAR standby, minimum Jetson power, recording/SLAM stopped).
+ */
+static inline uint8_t mavlink_msg_onboard_computer_modules_status_get_power_saving_state(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  19);
+}
+
+/**
  * @brief Decode a onboard_computer_modules_status message into a struct
  *
  * @param msg The message to decode
@@ -562,6 +589,7 @@ static inline void mavlink_msg_onboard_computer_modules_status_decode(const mavl
     onboard_computer_modules_status->collision_avoidance_state = mavlink_msg_onboard_computer_modules_status_get_collision_avoidance_state(msg);
     onboard_computer_modules_status->collision_detection_state = mavlink_msg_onboard_computer_modules_status_get_collision_detection_state(msg);
     onboard_computer_modules_status->navigation_state = mavlink_msg_onboard_computer_modules_status_get_navigation_state(msg);
+    onboard_computer_modules_status->power_saving_state = mavlink_msg_onboard_computer_modules_status_get_power_saving_state(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN? msg->len : MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN;
         memset(onboard_computer_modules_status, 0, MAVLINK_MSG_ID_ONBOARD_COMPUTER_MODULES_STATUS_LEN);
