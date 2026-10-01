@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_SKYRON.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_SKYRON_XML_HASH 1992251317558120287
+#define MAVLINK_SKYRON_XML_HASH 4103030467284978288
 
 #ifdef __cplusplus
 extern "C" {
