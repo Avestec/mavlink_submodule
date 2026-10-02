@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_SKYRON.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_SKYRON_XML_HASH 4103030467284978288
+#define MAVLINK_SKYRON_XML_HASH -2400500321766831386
 
 #ifdef __cplusplus
 extern "C" {
@@ -665,7 +665,7 @@ typedef enum ONBOARD_MODULE
    ONBOARD_MODULE_RECORDING=7, /* Data recording service. | */
    ONBOARD_MODULE_LIDAR_HW=8, /* LiDAR hardware, from the sensor's own status (e.g. Ouster HTTP API). BOOT=powering up or waking, STANDBY=put in standby, ACTIVE=running, CRITICAL=unknown status, EMERGENCY=unreachable after running, sensor error, or booting too long. | */
    ONBOARD_MODULE_STEREO_CAMERA_HW=9, /* Stereo camera hardware. | */
-   ONBOARD_MODULE_LIDAR_SLAM=10, /* LiDAR SLAM pose source; SLAM only (the LiDAR is LIDAR_HW and LIDAR_DRIVER). UNINIT=not started, BOOT=starting (from START_FLIGHT accepted until SLAM runs), ACTIVE=running, CRITICAL=degraded, EMERGENCY=failed (crashed, did not start, or lost its LiDAR data). START_FLIGHT is accepted when this is UNINIT (start) or EMERGENCY (restart) and LIDAR_HW and LIDAR_DRIVER are both ACTIVE; otherwise it is rejected with the reason in STATUSTEXT. | */
+   ONBOARD_MODULE_LIDAR_SLAM=10, /* LiDAR SLAM pose source (the LiDAR itself is LIDAR_HW and LIDAR_DRIVER). UNINIT=not started (LiDAR not ready), STANDBY=ready (SLAM not running, LIDAR_HW and LIDAR_DRIVER both ACTIVE), BOOT=starting (from START_FLIGHT accepted until SLAM runs), ACTIVE=running, CRITICAL=degraded, EMERGENCY=failed (crashed, did not start, or lost its LiDAR data). START_FLIGHT is accepted when this is STANDBY (start), or EMERGENCY (restart) while LIDAR_HW and LIDAR_DRIVER are both ACTIVE; otherwise it is rejected with the reason in STATUSTEXT. | */
    ONBOARD_MODULE_VISUAL_SLAM=11, /* Camera-based SLAM pose source. | */
    ONBOARD_MODULE_VIO=12, /* Visual-inertial odometry pose source. | */
    ONBOARD_MODULE_VPS=13, /* Vision positioning system pose source. | */
