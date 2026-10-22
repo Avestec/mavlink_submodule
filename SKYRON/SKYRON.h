@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_SKYRON.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_SKYRON_XML_HASH -2400500321766831386
+#define MAVLINK_SKYRON_XML_HASH 2621215555823062867
 
 #ifdef __cplusplus
 extern "C" {
@@ -554,7 +554,8 @@ typedef enum VEHICLE
    VEHICLE_SA_EMAT=7, /*  | */
    VEHICLE_SA_PA=8, /*  | */
    VEHICLE_ROVER=9, /*  | */
-   VEHICLE_ENUM_END=10, /*  | */
+   VEHICLE_SK_RAM=10, /*  | */
+   VEHICLE_ENUM_END=11, /*  | */
 } VEHICLE;
 #endif
 
