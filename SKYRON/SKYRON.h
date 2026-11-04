@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_SKYRON.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_SKYRON_XML_HASH 2621215555823062867
+#define MAVLINK_SKYRON_XML_HASH 2328379044209254490
 
 #ifdef __cplusplus
 extern "C" {
@@ -419,7 +419,7 @@ typedef enum MAV_CMD
    MAV_CMD_FLIGHT_TUNE=40026, /* Switch MC tuning parameters based on payload type |Payload type attached (LONG_ARM=4 for alternate tune, others use primary)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
    MAV_CMD_SELF_DRIVING=40027, /* To enable or disable self-driving mode |Self Driving Mode Selection| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
    MAV_CMD_PROGRAM_ACTIVATE=40028, /* To Start/ Stop a program |Program Selection| Program Action| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
-   MAV_CMD_ONBOARD_WIFI_CONFIG=40029, /* Configure WiFi and hotspot state. |WiFi enable/disable (ACTION_ENABLE/ACTION_DISABLE).| Hotspot enable/disable (ACTION_ENABLE/ACTION_DISABLE). Ignored when WiFi is disabled.| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
+   MAV_CMD_ONBOARD_WIFI_CONFIG=40029, /* Configure WiFi and hotspot state. COMMAND_ACK only accepts or rejects the command; the resulting state is reported in ONBOARD_MODULE_STATUS (ONBOARD_MODULE_WIFI, ONBOARD_MODULE_HOTSPOT). |WiFi enable/disable (ACTION_ENABLE/ACTION_DISABLE).| Hotspot enable/disable (ACTION_ENABLE/ACTION_DISABLE). Ignored when WiFi is disabled.| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
    MAV_CMD_LIDAR_CONTROL=40030, /* General LiDAR hardware control. Param 1 sets power mode: ACTION_DISABLE=standby (motor/laser throttled), ACTION_ENABLE=high-performance (full spin speed and data rate). Params 2-7 reserved for future LiDAR controls. |Power mode: ACTION_DISABLE=standby, ACTION_ENABLE=high-performance.| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
    MAV_CMD_PA_CAM_POS=40031, /* Phased Array Camare postion control |Camera module enable.| Camera moving direction.| Distance to move.| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
    MAV_CMD_POWER_SAVING_MODE=40032, /* Power-saving mode (rover and SA-type crawler): LiDAR to standby, Jetson to minimum power mode, recording and SLAM stopped. MAVLink comms and video streaming remain active. Param 1: ACTION_ENABLE=enter power-saving mode, ACTION_DISABLE=restore full power. |ACTION_ENABLE=enter, ACTION_DISABLE=exit.| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)| Reserved (default:NaN)|  */
@@ -675,7 +675,9 @@ typedef enum ONBOARD_MODULE
    ONBOARD_MODULE_NAVIGATION=16, /* Path planning / navigation. | */
    ONBOARD_MODULE_POWER_SAVING=17, /* Power-saving mode (ACTIVE = full power, STANDBY = power saving engaged). | */
    ONBOARD_MODULE_LIDAR_DRIVER=18, /* LiDAR driver (e.g. ouster_ros). UNINIT=not started (no data yet), STANDBY=waiting (no data because the sensor is not running), ACTIVE=running, EMERGENCY=stopped while the sensor runs. | */
-   ONBOARD_MODULE_ENUM_END=19, /*  | */
+   ONBOARD_MODULE_WIFI=19, /* Wi-Fi radio (set with MAV_CMD_ONBOARD_WIFI_CONFIG). STANDBY=off, ACTIVE=on, CRITICAL=state unknown (cannot be read). | */
+   ONBOARD_MODULE_HOTSPOT=20, /* Wi-Fi hotspot (set with MAV_CMD_ONBOARD_WIFI_CONFIG; can only be on while the Wi-Fi radio is on). STANDBY=off, BOOT=starting, ACTIVE=on, CRITICAL=state unknown (cannot be read), EMERGENCY=the last attempt to start it failed (cleared by the next MAV_CMD_ONBOARD_WIFI_CONFIG, or once it is on). | */
+   ONBOARD_MODULE_ENUM_END=21, /*  | */
 } ONBOARD_MODULE;
 #endif
 
